@@ -3,6 +3,7 @@
 受平台所托，完成了社团招新平台的前端部分。组件与部分实现参考 rx 的 [moectf平台](https://ctf.xidian.edu.cn), 但是代码一行都没有复制，我认为可视为原创，故开源。
 
 技术栈:
+
     - 框架: svelteKit
     - 语言: typescript, scss, svelte
     - 样式: tailwindcss
