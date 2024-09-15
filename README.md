@@ -4,10 +4,10 @@
 
 技术栈:
 
-    - 框架: svelteKit
-    - 语言: typescript, scss, svelte
-    - 样式: tailwindcss
-    - 组件库: daisyui
+- 框架: svelteKit
+- 语言: typescript, scss, svelte
+- 样式: tailwindcss
+- 组件库: daisyui
 
 以下为 sveltekit 原文: 
 
