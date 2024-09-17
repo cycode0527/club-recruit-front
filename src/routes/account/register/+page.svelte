@@ -12,22 +12,12 @@
     // import { v1 } from 'uuid';
     import { v1 } from 'uuid';
     import { svgToData, sleep } from '$lib/api/utils';
+    import { ckEmail, ckPassword, ckUsername } from '$lib/models/zCheck';
 
 let schema = z.object({
-    username: z
-    .string()
-    .trim()
-    .min(2, {message: "昵称长度至少为2"})
-    .max(32, {message: "昵称过长"}),
-    email: z
-    .string()
-    .trim()
-    .email({message: "输入的邮箱格式不正确"}),
-    password: z
-    .string()
-    .trim()
-    .min(8, {message: "输入的密码过短"})
-    .regex(/^(?=.*[a-zA-Z])(?=.*\d)[^]{8,40}$/, { message: '密码必须含有数字和字母' }),
+    username: ckUsername,
+    email: ckEmail,
+    password: ckPassword,
     passwordConfirm: z.string().trim(),
     challengeId: z.string().trim(),
     challengeValue: z.string().trim(),

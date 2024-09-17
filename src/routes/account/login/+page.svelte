@@ -13,17 +13,11 @@
     import { validator } from '@felte/validator-zod';
     import { goto } from '$app/navigation';
     import { svgToData, sleep } from '$lib/api/utils';
+    import { ckEmail, ckPassword } from '$lib/models/zCheck';
 
 let schema = z.object({
-    email: z
-    .string()
-    .trim()
-    .email({message: "输入的邮箱格式不正确"}),
-    password: z
-    .string()
-    .trim()
-    .min(8, {message: "输入的密码过短"})
-    .regex(/^(?=.*[a-zA-Z])(?=.*\d)[^]{8,40}$/, { message: '密码必须含有数字和字母' }),
+    email: ckEmail,
+    password: z.string().trim(),
 });
 
 /** 当前是否正在请求表单 */

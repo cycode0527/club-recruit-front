@@ -8,23 +8,17 @@
     import Input from "$lib/widgets/Input.svelte";
     import { z } from "zod";
     import { validator } from "@felte/validator-zod";
+    import { ckEmail, ckPassword } from "$lib/models/zCheck";
 
     let loading1 = false;
     let loading2 = false;
     
     const schema1 = z.object({
-        email: z
-        .string()
-        .trim()
-        .email("邮箱格式不正确"),
+        email: ckEmail,
     });
 
     const schema2 = z.object({
-        newPassword: z
-        .string()
-        .trim()
-        .min(8, {message: "输入的密码过短"})
-        .regex(/^(?=.*[a-zA-Z])(?=.*\d)[^]{8,40}$/, { message: '密码必须含有数字和字母' }),
+        newPassword: ckPassword,
         confirmPassword: z.string().trim(),
         emailKey: z.string().trim(),
     }).refine(values => values.newPassword === values.confirmPassword, {

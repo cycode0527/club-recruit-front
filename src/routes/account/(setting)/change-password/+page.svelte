@@ -2,6 +2,7 @@
     import { goto } from "$app/navigation";
     import { type ChangePasswordResponse, type GetCaptchaResponse, changePassword, getCaptcha } from "$lib/api/account";
     import { sleep, svgToData } from "$lib/api/utils";
+    import { ckPassword } from "$lib/models/zCheck";
     import Button from "$lib/widgets/Button.svelte";
     import Form from "$lib/widgets/Form.svelte";
     import FormItem from "$lib/widgets/FormItem.svelte";
@@ -11,15 +12,8 @@
     import { z } from "zod";
 
 let schema = z.object({
-    currentPassword: z
-    .string()
-    .trim()
-    .min(8, {message: "输入的密码过短"}),
-    newPassword: z
-    .string()
-    .trim()
-    .min(8, {message: "输入的密码过短"})
-    .regex(/^(?=.*[a-zA-Z])(?=.*\d)[^]{8,40}$/, { message: '密码必须含有数字和字母' }),
+    currentPassword: z.string().trim(),
+    newPassword: ckPassword,
     confirmPassword: z.string().trim(),
 }).refine(values => values.newPassword === values.confirmPassword, {
     message: "两次密码不一致",

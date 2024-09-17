@@ -37,7 +37,7 @@
     
     /** 第几页 */
     let pageCount = 1;
-    let limit = 5;
+    let limit = 10;
     
     /** 记录总数*/
     let total = 0;
@@ -68,6 +68,9 @@
             
             // 实际传出的方向数字为原数字的 2 幂
             let derectionNum = 2 ** parseInt(req.direction);
+            
+            /** 强制页数为1 */
+            pageCount = 1;
             
             // 更新请求方式为全新请求
             request = {
@@ -145,7 +148,7 @@
                     <option>null</option>
                 </Select>
             </div>
-            <Button type="submit" />
+            <Button type="submit" >搜索</Button>
             <!-- <Input> -->
             
         </Form>
