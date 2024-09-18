@@ -5,15 +5,14 @@
     import Form from '$lib/widgets/Form.svelte';
     import { login, getCaptcha } from '$lib/api/account';
     import type { LoginResponse, GetCaptchaResponse } from '$lib/api/account'
-    import { v1 } from 'uuid';
 
 
     import { createForm } from 'felte';
     import { z } from 'zod';
     import { validator } from '@felte/validator-zod';
-    import { goto } from '$app/navigation';
     import { svgToData, sleep } from '$lib/api/utils';
     import { ckEmail, ckPassword } from '$lib/models/zCheck';
+    import { user } from '$lib/stores/user';
 
 let schema = z.object({
     email: ckEmail,
@@ -67,9 +66,11 @@ const { form, errors, setData } = createForm({
         if (resp.code === 0) {
             message = "登陆成功！";
             await sleep(1000);
-            window.location.href = '/account/profile';
-        } else if (resp.message == "") {
-            console.log('');
+            if ($user.isAdmin) {
+                window.location.href = '/admin/userlist';
+            } else {
+                window.location.href = '/account/profile';
+            }
         } else if (resp.message == "challenge.rejected") {
             message = `<span style="color: red;">验证码错误</span>`;
         } else if (resp.message == "login.failed") {
@@ -90,7 +91,6 @@ async function handleChangeChallenge() {
     // 使用 setData, 更新表单内的 challengeId, 并且防止把其他数据去掉
     setData('challengeId', challengeId);
     imgSrc = svgToData(response.data);
-    console.log(challengeId);
 
 }
 
